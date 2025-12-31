@@ -23,8 +23,8 @@ import requests
 # 설정값
 WIKIPEDIA_URL = 'https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29'
 COUNTRY_REGION_JSON = 'Countries_Regions.json'
-LOG_FILE = 'etl_project_log.txt'
-DB_NAME = 'World_Economies.db'
+LOG_FILE = 'data/etl_project_log.txt'
+DB_FILE = 'data/World_Economies.db'
 TABLE_NAME = 'Countries_by_GDP'
 
 
@@ -53,6 +53,15 @@ class SQLiteHandler:
             self.conn.close()
 
 
+def init_data_dir():
+    """데이터 디렉토리가 존재하지 않으면 생성합니다."""
+    data_dirs = [DB_FILE, LOG_FILE]
+    for path in data_dirs:
+        dir_name = os.path.dirname(path)
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
+
+
 def log_progress(message: str) -> None:
     """ETL 프로세스의 각 단계와 시간을 로그 파일에 기록합니다.
 
@@ -63,7 +72,7 @@ def log_progress(message: str) -> None:
     now = datetime.datetime.now()
     timestamp = now.strftime(timestamp_format)
 
-    with open(LOG_FILE, 'a', encoding='utf-8') as f:
+    with open(LOG_FILE, 'a+', encoding='utf-8') as f:
         f.write(f"{timestamp}, {message}\n")
 
 
@@ -267,6 +276,9 @@ def run_sql_analysis(db_name: str, table_name: str) -> None:
 
 
 if __name__ == '__main__':
+    # data 디렉토리 초기화
+    init_data_dir()
+
     log_progress("ETL Process Started")
     try:
         # 1. Extract
@@ -277,10 +289,10 @@ if __name__ == '__main__':
             transformed_data = transform(raw_data)
 
             # 3. Load
-            load_to_db(transformed_data, DB_NAME, TABLE_NAME)
+            load_to_db(transformed_data, DB_FILE, TABLE_NAME)
 
             # 4. Analysis
-            run_sql_analysis(DB_NAME, TABLE_NAME)
+            run_sql_analysis(DB_FILE, TABLE_NAME)
 
             log_progress("ETL Process Completed Successfully")
 

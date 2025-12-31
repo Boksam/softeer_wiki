@@ -31,9 +31,18 @@ import requests
 
 # 설정값
 WIKIPEDIA_URL = 'https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29'
-JSON_PATH = 'Countries_by_GDP.json'
+JSON_PATH = 'data/Countries_by_GDP.json'
 COUNTRY_REGION_JSON = 'Countries_Regions.json'
-LOG_FILE = 'etl_project_log.txt'
+LOG_FILE = 'data/etl_project_log.txt'
+
+
+def init_data_dir():
+    """데이터 디렉토리가 존재하지 않으면 생성합니다."""
+    data_dirs = [JSON_PATH, LOG_FILE]
+    for path in data_dirs:
+        dir_name = os.path.dirname(path)
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
 
 
 def log_progress(message: str) -> None:
@@ -46,7 +55,7 @@ def log_progress(message: str) -> None:
     now = datetime.datetime.now()
     timestamp = now.strftime(timestamp_format)
 
-    with open(LOG_FILE, 'a', encoding='utf-8') as f:
+    with open(LOG_FILE, 'a+', encoding='utf-8') as f:
         f.write(f"{timestamp}, {message}\n")
 
 
@@ -241,6 +250,9 @@ def run_analysis(df: pd.DataFrame):
 
 
 if __name__ == '__main__':
+    # data 디렉토리 초기화
+    init_data_dir()
+
     log_progress("ETL Process Started")
     try:
         # 1. Extract
