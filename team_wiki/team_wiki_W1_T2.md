@@ -1,6 +1,6 @@
-# [W1] 개요
+# 1주차 2조 팀 위키
 
-1주차 미션에 대해서 팀원들과 토의한 내용을 정리합니다.
+1주차 미션을 수행하고 팀원들과 토의한 내용을 정리한 글입니다.
 
 - 2조
   - 박준우
@@ -9,11 +9,19 @@
 
 ---
 
-## 1. [W1M1] MT Cars 데이터셋 분석
+## 목차
+
+1. [W1M1 - MT Cars 데이터셋 분석](#1-w1m1---mt-cars-데이터셋-분석)
+2. [W1M2 - SQL Tutorial](#2-w1m2---sql-tutorial)
+3. [W1M3 - ETL 프로세스 구현하기](#3-w1m3---etl-프로세스-구현하기)
+
+---
+
+## 1. W1M1 - MT Cars 데이터셋 분석
 
 ### Q1. 이런 데이터셋을 분석해서 얻을 수 있는 경제적 가치는 무엇일까요? 어떤 비즈니스 상황에서 이런 데이터셋을 분석해서 어떤 경제적 가치를 얻을 수 있을까요?
 
-#### 연비 규제 대응 및 탄소 배출권 관리 (ESG)
+#### 1) 연비 규제 대응 및 탄소 배출권 관리 (ESG)
 
 - **주체**: 글로벌 자동차 제조사 (전략기획 및 R&D 부서)
 - **상황**: 글로벌 환경 규제 강화 및 징벌적 과태료 리스크
@@ -22,7 +30,7 @@
   - **탄소 배출권 수익화**: 규제 기준 이상의 연비 개선 성공 시, 확보한 초과 달성분을 탄소 배출권 시장에 판매하여 직접적인 부가 수익을 창출한다.
   - **R&D 투자 효율 최적화**: 데이터에 기반하여 '연비 효율이 가장 낮은 세그먼트'를 식별하고, 해당 모델의 경량화 소재 도입에 따른 ROI(투자 대비 효율)를 계산함으로써 한정된 연구개발 예산을 전략적으로 배분한다.
 
-#### 제품 포트폴리오 최적화 및 생산 공정 효율화
+#### 2) 제품 포트폴리오 최적화 및 생산 공정 효율화
 
 - **주체**: 자동차 제조사 생산본부 및 기획 부서
 - **상황**: 과도한 제품 라인업으로 인한 생산 복잡도 및 비용 증가
@@ -30,7 +38,7 @@
   - **공정 단순화를 통한 비용 절감**: 교차 분석을 통해 시장 선호도가 극히 낮은 조합(예: 3단 기어 & 수동 변속기 등)을 식별하고 라인업에서 제외한다. 이를 통해 생산 라인 교체 횟수를 줄여 가동률을 높이고, 연간 수십억 원 단위의 재고 관리 및 물류 비용을 절감한다.
   - **판매 기회 손실 방지 및 매출 극대화:** 데이터상 선호도가 검증된 인기 조합에 생산 역량을 집중함으로써, 베스트셀러 모델의 출고 대기 시간을 단축하고 판매 적기를 놓쳐 발생하는 기회 비용을 최소화한다.
 
-#### 차량 성능 데이터 분석을 통한 물류·운송 기업의 유지비 절감 및 운영 효율화
+#### 3) 차량 성능 데이터 분석을 통한 물류·운송 기업의 유지비 절감 및 운영 효율화
 
 - **주체**: 물류, 운송 기업(택배, 화물)
 - **상황:** 운임 단가가 제한적인 산업의 특성상 유지 비용 절감이 곧 수익성 개선으로 직결되는 상황
@@ -45,6 +53,8 @@
 - 배기량($disp$) - 무게($wt$): `+0.88`의 강한 양의 상관관계
 - 무게($wt$) - 연비($mpg$): `-0.86`의 강한 음의 상관관계
 
+<img width="1564" height="632" alt="image" src="https://github.com/user-attachments/assets/58e7701b-f6fd-490c-ad16-25f21edb7a04" />
+
 #### 분석 결론: 매개 효과(Mediation Effect) 확인
 
 분석 결과 **[A]배기량 → [B]무게 → [C]연비**로 이어지는 상관 구조가 형성된다.
@@ -56,15 +66,14 @@
 - **엔진 다운사이징의 당위성**: 연비[C] 개선을 위해 단순히 차체를 가볍게 만드는 것(B 개선)은 한계가 있다. 배기량[A]을 낮추되 출력은 유지하는 터보차저 기술 등을 도입하면 무게 감소와 연비 향상을 동시에 달성하는 고부가가치 창출이 가능하다.
 - **규제 비용 및 세금 시뮬레이션**: 배기량[A] 기준의 자동차세와 연비[C] 기준의 탄소세를 통합 분석할 수 있다. 기업은 배기량을 소폭 상향할 때 발생하는 세금 변화와 그에 따른 연비 하락으로 인한 과징금 리스크를 사전에 시뮬레이션하여 최적의 수익 구조를 설계할 수 있다.
 
-## 2. [W1M2] SQL Tutorial
+## 2. W1M2 - SQL Tutorial
 
 ### Q1. 각자가 이해하기 어려웠던, 또는 이해하지 못한 keyword에 대해서 함께 토의해 봅시다.
 
-#### SQLite에서 LIKE 문법의 대소문자 구분 불가
+#### 1) SQLite에서 LIKE 문법의 대소문자 구분 불가
 
 **SQLite**의 `LIKE`는 기본적으로 **ASCII case-insensitive**로 동작하도록 설계되어 있다.
 따라서 아래의 쿼리는 True를 반환한다.
-
 ```sql
 SELECT 'a' LIKE 'A'; -- 1 (TRUE)
 ```
@@ -72,46 +81,43 @@ SELECT 'a' LIKE 'A'; -- 1 (TRUE)
 문자열을 비교할 때 일반적으로 대소문자를 구분하는 것으로 생각했지만, 그렇지 않아서 헷갈렸다.
 SQLite의 `LIKE` 문법에서 대소문자를 구분하려면 두 가지의 방법이 있다.
 
-1. PRAGMA case_sensitive_like 설정
+##### **방법 1. PRAGMA case_sensitive_like 설정**
 
 아래와 같이 PRAGMA문을 사용하여 대소문자 구분을 활성화할 수 있다.
 다만 이 설정은 DEPRECATED 되었으며, [공식 문서](https://sqlite.org/pragma.html#pragma_case_sensitive_like)에서도 사용을 권장하지 않는다.
-
 ```sql
 PRAGMA case_sensitive_like = TRUE;
 ```
 
-2. GLOB 연산자 사용
+##### **방법 2. `GLOB` 연산자 사용**
 
 `GLOB` 연산자는 기본적으로 대소문자를 구분한다.
 다만, `GLOB`는 와일드카드 문법이 `*`와 `?`로 다르므로 주의가 필요하다.
-
 ```sql
 SELECT 'a' GLOB 'A'; -- 0 (FALSE)
 ```
 
-#### SQLite에서 지원하지 않는 문법
+#### 2) SQLite에서 지원하지 않는 문법
 
 SQLite는 경량, 임베디드 데이터베이스로 설계되어 서버형 DB에서 제공하는 일부 확장 문법을 지원하지 않는다.
 
-**문자열 패턴 매칭 (LIKE, 와일드카드)**
+##### **문자열 패턴 매칭 (LIKE, 와일드카드)**
 
 - `[]` 기반 문자 집합 / 범위 지정은 MSSQL 전용 문법이다.
 - SQLite에서는 `OR` 조건으로 직접 나열, 연속 범위인 경우 `BETWEEN` 활용, `GLOB` 연산자로 해결 가능하다.
 
-**SELECT INTO 문법**
+##### **SELECT INTO 문법**
 
 - SQL Server / MS Access 전용 문법이다.
 - SQLite에서는 `CREATE TABLE AS SELECT`로 대체 가능하다. 다만 이 경우 `PK`, `FK`, `INDEX` 등은 복사되지 않는다.
 
-**TOP N 문법**
+##### **TOP N 문법**
 
 - LIMIT 문법으로 대체 가능하다.
 
-**ANY / ALL 문법**
+##### **ANY / ALL 문법**
 
 - SQLite는 ANY, ALL을 불필요한 확장 문법으로 판단하여 제외한다. 동일한 의미를 더 단순한 문법으로 표현 가능하다.
-
 ```sql
 WHERE ProductID IN (
     SELECT ProductID
@@ -121,16 +127,16 @@ WHERE ProductID IN (
 
 - `ALL` 의 경우 서브 쿼리 결과에 따라 성립하는 경우가 적어 실무적으로 사용하지 않는다.
 
-**날짜 리티럴 문법**
+##### **날짜 리티럴 문법**
 
 - `#01-01-01#` 형식은 MS Access에서 사용하는 날짜 리터럴이고, SQLITE에서는 인식되지 않는다.
 - SQLITE에서는 `'YYYY-MM-DD'` 형식의 문자열을 사용하거나, `DATE()` 함수를 사용하여 날짜를 다룬다.
 
-## W1M3 - ETL 프로세스 구현하기
+## 3. W1M3 - ETL 프로세스 구현하기
 
 ### Q1. wikipeida 페이지가 아닌, IMF 홈페이지에서 직접 데이터를 가져오는 방법은 없을까요? 어떻게 하면 될까요?
 
-#### 파일 기반 데이터셋 다운로드 방식
+#### 1) 파일 기반 데이터셋 다운로드 방식
 
 - **접근 방식**
   - IMF 데이터 포털에서 제공하는 공식 데이터셋 파일(CSV/Excel)을 직접 다운로드한다. \*\*\*\*
@@ -147,15 +153,14 @@ WHERE ProductID IN (
   - 다운로드 링크 구조가 변경될 경우 HTML 파싱 로직 수정이 필요하다.
   - 파일 단위 수집 방식이므로 실시간 갱신에는 적합하지 않다.
 
-#### IMF Datamapper 전용 REST API 방식
+#### 2) IMF Datamapper 전용 REST API 방식
 
 - **접근 방식**
   - IMF Datamapper 서비스에서 제공하는 REST 형태의 API를 활용하여, 지표 및 국가 목록을 조회하고 지표 단위로 전체 데이터를 수집한다.
 - **구현 방법**
   1. IMF Datamapper 공식 문서(https://www.imf.org/external/datamapper/api/help)를 통해 사용 가능한 엔드포인트를 파악한다.
   2. indicators 엔드포인트를 통해 GDP 등 필요한 지표 코드를 확인한다. (예: GDP → NGDPD)
-
-  ```sql
+```sql
   "NGDPD": {
     "label": "GDP, current prices",
     "description": "Gross domestic product is the most commonly used single measure of a country's overall economic activity. It represents the total value at current prices of final goods and services produced within a country during a specified time period, such as one year.",
@@ -163,11 +168,10 @@ WHERE ProductID IN (
     "unit": "Billions of U.S. dollars",
     "dataset": "WEO"
   }
-  ```
+```
 
   3. countries 엔드포인트를 통해 국가 코드 목록을 수집한다.
-
-  ```sql
+```sql
   "countries": {
   "ABW": {
     "label": "Aruba"
@@ -178,7 +182,7 @@ WHERE ProductID IN (
   "AGO": {
     "label": "Angola"
   }
-  ```
+```
 
   4. 지표 코드 기준 엔드포인트를 통해 각 국가 코드별 데이터를 수집한다. GDP의 경우 [https://www.imf.org/external/datamapper/api/v1/NGDPD](https://www.imf.org/external/datamapper/api/v1/NGDPD) 에 각 국가 코드별 GDP 정보가 있다.
   5. 수신한 JSON 데이터를 파싱하여 국가 코드에 매핑한 뒤 DB에 적재한다.
@@ -190,7 +194,7 @@ WHERE ProductID IN (
   - 데이터가 갱신된 정확한 시점을 API 응답만으로 파악하기 어렵다.
   - 지표 단위로 전체 데이터를 내려주므로 불필요한 데이터가 포함될 수 있다.
 
-#### SDMX 표준 기반 공식 API 방식
+#### 3) SDMX 표준 기반 공식 API 방식
 
 - **접근 방식**
   - IMF가 제공하는 SDMX(Standard Data and Metadata eXchange) 표준 기반 API를 사용하여, 데이터셋, 국가, 지표, 연도 정보를 key 형태로 조합해 필요한 데이터만 조회한다.
@@ -208,7 +212,7 @@ WHERE ProductID IN (
   - 초기 구현 난이도가 상대적으로 높다.
   - 응답 구조가 복잡하여 파싱 로직이 길어질 수 있다.
 
-#### IMF 홈페이지 브라우저 요청 분석 기반 데이터 수집
+#### 4) IMF 홈페이지 브라우저 요청 분석 기반 데이터 수집
 
 - **접근 방식**
   - IMF 홈페이지에서 사용자가 필터(국가, 연도, 지표 등)를 선택할 때, 브라우저는 내부적으로 특정 API 요청을 전송하고 JSON 형식의 응답을 받아 화면을 구성한다. 이때 네트워크 요청을 분석하여, 동일한 request를 Python 코드로 재현하는 방식이다.
@@ -251,3 +255,5 @@ WHERE ProductID IN (
    - 데이터에 `release_id` , `start_data`, `end_date`, `is_current`와 같이 버전 또는 유효 기간 관련 컬럼을 추가한다.
    - 과거 데이터 조회를 고려하여 덮어쓰기 방식이 아닌 append 방식으로 데이터를 추가한다.
    - 테이블 설계 시에는 과거 데이터가 서로 다른 행으로 저장될 수 있도록 복합 Primary Key를 구성한다.
+
+<img width="1170" height="868" alt="image" src="https://github.com/user-attachments/assets/7627ae44-6385-42c2-822d-fd647307e350" />
