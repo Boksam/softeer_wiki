@@ -160,30 +160,28 @@ WHERE ProductID IN (
 - **구현 방법**
   1. IMF Datamapper 공식 문서(https://www.imf.org/external/datamapper/api/help)를 통해 사용 가능한 엔드포인트를 파악한다.
   2. indicators 엔드포인트를 통해 GDP 등 필요한 지표 코드를 확인한다. (예: GDP → NGDPD)
-```sql
-  "NGDPD": {
-    "label": "GDP, current prices",
-    "description": "Gross domestic product is the most commonly used single measure of a country's overall economic activity. It represents the total value at current prices of final goods and services produced within a country during a specified time period, such as one year.",
-    "source": "World Economic Outlook (October 2025)",
-    "unit": "Billions of U.S. dollars",
-    "dataset": "WEO"
-  }
-```
-
+  ```sql
+    "NGDPD": {
+      "label": "GDP, current prices",
+      "description": "Gross domestic product is the most commonly used single measure of a country's overall economic activity. It represents the total value at current prices of final goods and services produced within a country during a specified time period, such as one year.",
+      "source": "World Economic Outlook (October 2025)",
+      "unit": "Billions of U.S. dollars",
+      "dataset": "WEO"
+    }
+  ```
   3. countries 엔드포인트를 통해 국가 코드 목록을 수집한다.
-```sql
-  "countries": {
-  "ABW": {
-    "label": "Aruba"
-  },
-  "AFG": {
-    "label": "Afghanistan"
-  },
-  "AGO": {
-    "label": "Angola"
-  }
-```
-
+  ```sql
+    "countries": {
+    "ABW": {
+      "label": "Aruba"
+    },
+    "AFG": {
+      "label": "Afghanistan"
+    },
+    "AGO": {
+      "label": "Angola"
+    }
+  ```
   4. 지표 코드 기준 엔드포인트를 통해 각 국가 코드별 데이터를 수집한다. GDP의 경우 [https://www.imf.org/external/datamapper/api/v1/NGDPD](https://www.imf.org/external/datamapper/api/v1/NGDPD) 에 각 국가 코드별 GDP 정보가 있다.
   5. 수신한 JSON 데이터를 파싱하여 국가 코드에 매핑한 뒤 DB에 적재한다.
 
